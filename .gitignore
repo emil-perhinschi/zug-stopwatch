@@ -1,0 +1,15 @@
+.dub
+docs.json
+__dummy.html
+docs/
+/stopwatch
+stopwatch.so
+stopwatch.dylib
+stopwatch.dll
+stopwatch.a
+stopwatch.lib
+stopwatch-test-*
+*.exe
+*.o
+*.obj
+*.lst

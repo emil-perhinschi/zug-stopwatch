@@ -1,0 +1,13 @@
+{
+    "authors": [
+         "Emil Nicolaie Perhinschi"
+    ],
+    "copyright": "Copyright © 2021, Emil Nicolaie Perhinschi",
+    "dependencies": {
+        "gtk-d": "~>3.10.0",
+	"zug-data": { "path": "../zug-data/"}
+    },
+    "description": "display a configurable stopwatch",
+    "license": "proprietary",
+    "name": "stopwatch"
+}
