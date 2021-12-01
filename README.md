@@ -1,2 +1,2 @@
 # zug-stopwatch
-more configurable stopwatch than usually available
+work in progress, aiming at becoming a more configurable stopwatch than usually available
