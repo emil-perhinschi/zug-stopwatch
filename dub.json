@@ -8,6 +8,6 @@
 	"zug-data": { "path": "../zug-data/"}
     },
     "description": "display a configurable stopwatch",
-    "license": "proprietary",
+    "license": "BSL-1.0",
     "name": "stopwatch"
 }

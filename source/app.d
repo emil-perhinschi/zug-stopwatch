@@ -1,28 +1,40 @@
-// This source code is in the public domain.
-
-// Cairo: Animate a Text Counter
-
 import std.stdio: writeln;
 import std.conv;
-// import std.math;
 
+import gtk.Box;
 import gtk.MainWindow;
 import gtk.Main;
-import gtk.Box;
 import gtk.Widget;
 import cairo.Context;
 import gtk.DrawingArea;
 import gtk.Button;
 
 void main(string[] args) {
+    import gtk.Notebook;
+    import gtk.Label;
 
 	Main.init(args);
 
-	StopwatchWindow w = new StopwatchWindow("Stopwatch");    
+    StopwatchWindow w = new StopwatchWindow("Stopwatch");    
+
+    auto tabContainer = new Notebook();
+    tabContainer.setTabPos(PositionType.TOP);
+    
+    Label stopWatchTabLabel = new Label("Stopwatch");
+    auto stopWatchBox = buildStopWatchTab();
+    tabContainer.appendPage(stopWatchBox, stopWatchTabLabel);
+
+    w.add(tabContainer);
+    w.showAll();
+	Main.run();
+}
+
+Box buildRoutineTab() {
+    import gtk.Button;
+
     auto box = new Box(Orientation.VERTICAL, 10);
 
 	auto displayTime = new DisplayTime();
-
     auto buttonsContainer = new Box(Orientation.HORIZONTAL, 10);
     
     auto startButton = new Button("Start");
@@ -35,21 +47,39 @@ void main(string[] args) {
 
     box.packStart(buttonsContainer, false, true, 0);
 
+    box.packStart(displayTime, true, true, 0);
+    return box;    
+}
+
+Box buildStopWatchTab() {
+    import gtk.Button;
+
+    auto box = new Box(Orientation.VERTICAL, 10);
+
+	auto displayTime = new DisplayTime();
+    auto buttonsContainer = new Box(Orientation.HORIZONTAL, 10);
+    
+    auto startButton = new Button("Start");
+    startButton.addOnClicked(delegate void(Button b) { displayTime.toggleTimer(startButton); });
+    buttonsContainer.packStart(startButton, true, true, 0);
+
+    auto resetButton = new Button("Reset");
+    resetButton.addOnClicked(delegate void(Button b) { displayTime.reset(startButton); }); 
+    buttonsContainer.packStart(resetButton, true, true, 0);
+
+    box.packStart(buttonsContainer, false, true, 0);
 
     box.packStart(displayTime, true, true, 0);
-
-    w.add(box);
-    w.showAll();
-	Main.run();
+    return box;
 }
 
 class StopwatchWindow : MainWindow {
     int width  = 640;
-    int height = 360;
+    int height = 480;
     this(string title) {
         super(title);
         this.setSizeRequest(width, height);
-        this.addOnDestroy((Widget widget) => Main.quit());
+        this.addOnDestroy((Widget w) => Main.quit());
     }
 }
 
